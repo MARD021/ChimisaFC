@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #101010;
+    color: #ffffff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #121212;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+    color: #00bcd4;
+    margin-bottom: 20px;
+}
+
+.channel-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Cuatro columnas */
+    gap: 15px;
+}
+
+.channel {
+    background-color: #1c1c1c;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.channel p {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.btn-watch {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background-color: #ffc107;
+    color: #000;
+    transition: background-color 0.3s ease;
+}
+
+.btn-watch:hover {
+    background-color: #e0a800;
+}
+
+.status {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status.active {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.status.inactive {
+    background-color: #f44336;
+    color: #fff;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canales Deportivos</title>
+    <link rel="stylesheet" href="prueba.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Canales Deportivos (<span id="current-time"></span>) (HD)</h1>
+        <div class="channel-grid">
+            <!-- Repite estos bloques para añadir más canales -->
+            <div class="channel">
+                <p>ESPN 1</p>
+                <button class="btn-watch" onclick="openLink('https://example.com/espn1')">Ver</button>
+                <span class="status active">Activo</span>
+            </div>
+            <div class="channel">
+                <p>ESPN 2</p>
+                <button class="btn-watch" onclick="openLink('https://example.com/espn2')">Ver</button>
+                <span class="status inactive">Inactivo</span>
+            </div>
+            <div class="channel">
+                <p>ESPN 3</p>
+                <button class="btn-watch" onclick="openLink('https://example.com/espn3')">Ver</button>
+                <span class="status active">Activo</span>
+            </div>
+            <div class="channel">
+                <p>ESPN 4</p>
+                <button class="btn-watch" onclick="openLink('https://example.com/espn4')">Ver</button>
+                <span class="status active">Activo</span>
+            </div>
+            <div class="channel">
+                <p>ESPN 5</p>
+                <button class="btn-watch" onclick="openLink('https://example.com/espn5')">Ver</button>
+                <span class="status inactive">Inactivo</span>
+            </div>
+            <div class="channel">
+                <p>ESPN 6</p>
+                <button class="btn-watch" onclick="openLink('https://example.com/espn6')">Ver</button>
+                <span class="status active">Activo</span>
+            </div>
+            <div class="channel">
+                <p>ESPN 7</p>
+                <button class="btn-watch" onclick="openLink('https://example.com/espn7')">Ver</button>
+                <span class="status inactive">Inactivo</span>
+            </div>
+            <div class="channel">
+                <p>ESPN 8</p>
+                <button class="btn-watch" onclick="openLink('https://example.com/espn8')">Ver</button>
+                <span class="status active">Activo</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para actualizar el reloj
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const formattedTime = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('current-time').textContent = formattedTime;
+        }
+
+        // Función para redirigir al enlace al hacer clic en "Ver"
+        function openLink(url) {
+            window.open(url, '_blank'); // Abre el enlace en una nueva pestaña
+        }
+
+        // Actualizar el reloj cada segundo
+        setInterval(updateClock, 1000);
+        // Inicializar el reloj al cargar la página
+        updateClock();
+    </script>
+</body>
+</html>
