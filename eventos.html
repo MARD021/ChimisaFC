@@ -1,53 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos Deportivos</title>
-    <link rel="stylesheet" href="eventos.css">
+    <title>Página Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Chimisa FC</h2>
-        <h1>Eventos Deportivos (<span id="current-time"></span>) (HD)</h1>
-<p class="subtitle">Español / <span class="highlight">5 Minutos antes de iniciar.</span></p>
-<div class="events-list">
-    <div class="event">
-        <div class=">13:00 - UEFA Champions League: Manchester City vs Real Madrid</div>
-        <div class="event-actions">
-            
-            <a href="eventos1 copy 4.html" target="_blank" class="btn-watch yellow" >Ver</a>
-           
-            <span class="status live">En Vivo</span>          
-<div class="events-list">
-    <div class="event">
-        <div class="event-info">13:00 - UEFA Champions League: Manchester City vs Real Madrid</div>
-        <div class="event-actions">
-            <a href="eventos1 copy 4.html" target="_blank" class="btn-watch yellow" >Ver</a>
-            <span class="status live">En Vivo</span>
-</div>
-</div>
-    <script>
-        // Función para actualizar el reloj
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const formattedTime = `${hours}:${minutes}:${seconds}`;
-            document.getElementById('current-time').textContent = formattedTime;
-        }
-
-        // Función para redirigir al enlace al hacer clic en "Ver"
-        function openLink(url) {
-            window.open(url, '_blank'); // Abre el enlace en una nueva pestaña
-        }
-
-        // Actualizar el reloj cada segundo
-        setInterval(updateClock, 1000);
-        // Inicializar el reloj al cargar la página
-        updateClock();
-    </script>
+    <iframe src="https://streamtp3.com/eventos.html"></iframe>
 </body>
 </html>
 
