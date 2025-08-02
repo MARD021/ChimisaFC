@@ -3,10 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#111">
-  <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Anime Player</title>
   <style>
+    :root {
+      --bg: #111;
+      --header-bg: #222;
+      --text-color: #fff;
+      --highlight: #00ffcc;
+      --card-bg: #1a1a1a;
+      --hover-bg: #2a2a2a;
+      --comment-bg: #1a1a1a;
+    }
+
+    body.light {
+      --bg: #f2f2f2;
+      --header-bg: #ddd;
+      --text-color: #111;
+      --highlight: #008080;
+      --card-bg: #fff;
+      --hover-bg: #e0e0e0;
+      --comment-bg: #f9f9f9;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -14,19 +32,33 @@
     body {
       margin: 0;
       padding: 0;
-      background: #111;
+      background: var(--bg);
       font-family: 'Segoe UI', sans-serif;
-      color: #fff;
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
     }
 
     header {
       padding: 20px;
       text-align: center;
-      background: #222;
-      color: #00ffcc;
+      background: var(--header-bg);
+      color: var(--highlight);
       font-size: 1.8rem;
       font-weight: bold;
       text-shadow: 1px 1px 4px #000;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: var(--highlight);
+      color: #000;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 1000;
     }
 
     .container {
@@ -38,71 +70,77 @@
     }
 
     .video-section {
-      flex: 1 1 640px;
+      flex: 1 1 100%;
       max-width: 800px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
     }
 
-    .iframe-wrapper {
-      position: relative;
+    .video-section iframe {
       width: 100%;
-      padding-top: 56.25%; /* 16:9 ratio */
-      border-radius: 12px;
-      overflow: hidden;
+      aspect-ratio: 16/9;
+      border: none;
+      display: block;
     }
 
-    .iframe-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .server-selector {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .server-selector button {
+      background: var(--highlight);
       border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     .episodes {
-      flex: 1 1 250px;
-      max-width: 300px;
-      background: #1a1a1a;
+      flex: 1 1 100%;
+      max-width: 800px;
+      background: var(--card-bg);
       border-radius: 10px;
       padding: 15px;
-      overflow-y: auto;
-      max-height: 480px;
+      overflow-x: auto;
     }
 
     .episodes h2 {
       font-size: 1.2rem;
       margin-bottom: 10px;
-      color: #00ffcc;
+      color: var(--highlight);
     }
 
     .episode {
       padding: 8px 10px;
       margin-bottom: 8px;
-      background: #2a2a2a;
+      background: var(--hover-bg);
       border-radius: 6px;
       cursor: pointer;
       transition: 0.2s;
     }
 
     .episode:hover {
-      background: #00ffcc;
+      background: var(--highlight);
       color: #000;
     }
 
     .comments {
       margin-top: 30px;
       padding: 20px;
-      max-width: 960px;
+      max-width: 800px;
       margin-left: auto;
       margin-right: auto;
     }
 
     .comments h3 {
       margin-bottom: 10px;
-      color: #00ffcc;
+      color: var(--highlight);
     }
 
     textarea {
@@ -112,12 +150,14 @@
       border: none;
       resize: vertical;
       font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text-color);
     }
 
     button {
       margin-top: 10px;
       padding: 10px 15px;
-      background: #00ffcc;
+      background: var(--highlight);
       border: none;
       border-radius: 6px;
       cursor: pointer;
@@ -125,91 +165,54 @@
     }
 
     .comment-box {
-      background: #1a1a1a;
+      background: var(--comment-bg);
       margin-top: 15px;
       padding: 10px;
       border-radius: 6px;
     }
 
-    @media (max-width: 768px) {
+    @media (min-width: 768px) {
       .container {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 10px;
+        flex-direction: row;
+        align-items: flex-start;
       }
 
       .video-section {
-        max-width: 100%;
+        flex: 1 1 640px;
       }
 
       .episodes {
-        max-width: 100%;
-        max-height: 200px;
-        overflow-x: auto;
-        overflow-y: hidden;
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 10px;
-        padding: 10px;
-      }
-
-      .episodes h2 {
-        display: none;
-      }
-
-      .episode {
-        flex: 0 0 auto;
-        min-width: 120px;
-        text-align: center;
-        font-size: 0.9rem;
-      }
-
-      .comments {
-        padding: 10px;
-      }
-
-      textarea {
-        font-size: 0.9rem;
-      }
-
-      button {
-        width: 100%;
+        flex: 1 1 250px;
+        max-height: 480px;
+        overflow-y: auto;
       }
     }
   </style>
 </head>
 <body>
 
+  <button class="toggle-btn" onclick="toggleTheme()">🌙 Modo</button>
+
   <header>Horimiya en latino</header>
 
   <div class="container">
-    <!-- Video Player -->
     <div class="video-section" id="video-player">
-      <div class="iframe-wrapper">
-        <iframe src="" allowfullscreen></iframe>
+      <iframe id="video-frame" src="https://mivalyo.com/embed/hn1g7a7ly4hq" allowfullscreen></iframe>
+      <div class="server-selector">
+        <button onclick="changeServer(1)">Servidor 1</button>
+        <button onclick="changeServer(2)">Servidor 2</button>
       </div>
     </div>
 
-    <!-- Episodios -->
     <div class="episodes">
       <h2>Episodios</h2>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/hn1g7a7ly4hq')">Episodio 1</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/yjn9k52cs45h')">Episodio 2</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/vdoox3vwnqqh')">Episodio 3</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/304qibw0ynye')">Episodio 4</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/4ys9znnhu79t')">Episodio 5</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/3ic8w588671y')">Episodio 6</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/2317bflyjpxw')">Episodio 7</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/olmaskv5j221')">Episodio 8</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/6mfrdazdpvge')">Episodio 9 </div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/4em2d3lqw9bu')">Episodio 10</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/ya4uu2vssr14')">Episodio 11</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/nkpebj7e8ekj')">Episodio 12</div>
-      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/q8ieiwgv0wt2')">Episodio 13</div>
+      <div class="episode" onclick="setEpisode(1)">Episodio 1</div>
+      <div class="episode" onclick="setEpisode(2)">Episodio 2</div>
+      <div class="episode" onclick="setEpisode(3)">Episodio 3</div>
+      <div class="episode" onclick="setEpisode(4)">Episodio 4</div>
     </div>
   </div>
 
-  <!-- Comentarios -->
   <div class="comments">
     <h3>Comentarios</h3>
     <textarea id="comentario" rows="4" placeholder="Escribe tu comentario..."></textarea>
@@ -218,9 +221,37 @@
   </div>
 
   <script>
-    function changeVideo(url) {
-      const iframe = document.querySelector("#video-player iframe");
-      iframe.src = url;
+    const episodios = {
+      1: {
+        s1: "https://mivalyo.com/embed/hn1g7a7ly4hq",
+        s2: "https://filemoon.sx/e/ejemplo1"
+      },
+      2: {
+        s1: "https://mivalyo.com/embed/yjn9k52cs45h",
+        s2: "https://filemoon.sx/e/ejemplo2"
+      },
+      3: {
+        s1: "https://mivalyo.com/embed/vdoox3vwnqqh",
+        s2: "https://filemoon.sx/e/ejemplo3"
+      },
+      4: {
+        s1: "https://mivalyo.com/embed/304qibw0ynye",
+        s2: "https://filemoon.sx/e/ejemplo4"
+      }
+    };
+
+    let episodioActual = 1;
+    let servidorActual = 1;
+
+    function setEpisode(num) {
+      episodioActual = num;
+      changeServer(servidorActual);
+    }
+
+    function changeServer(servidor) {
+      servidorActual = servidor;
+      const url = servidor === 1 ? episodios[episodioActual].s1 : episodios[episodioActual].s2;
+      document.getElementById("video-frame").src = url;
     }
 
     function agregarComentario() {
@@ -232,6 +263,10 @@
         document.getElementById("comentarios-lista").prepend(div);
         document.getElementById("comentario").value = "";
       }
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("light");
     }
   </script>
 
