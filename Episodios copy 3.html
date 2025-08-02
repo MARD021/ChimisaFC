@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anime Player</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #222;
+      color: #00ffcc;
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .video-section {
+      flex: 1 1 640px;
+      max-width: 800px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+    }
+
+    .video-section iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+    }
+
+    .episodes {
+      flex: 1 1 250px;
+      max-width: 300px;
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 15px;
+      overflow-y: auto;
+      max-height: 480px;
+    }
+
+    .episodes h2 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #00ffcc;
+    }
+
+    .episode {
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      background: #2a2a2a;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .episode:hover {
+      background: #00ffcc;
+      color: #000;
+    }
+
+    .comments {
+      margin-top: 30px;
+      padding: 20px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .comments h3 {
+      margin-bottom: 10px;
+      color: #00ffcc;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      resize: vertical;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #00ffcc;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .comment-box {
+      background: #1a1a1a;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Horimiya en latino</header>
+
+  <div class="container">
+    <!-- Video Player -->
+    <div class="video-section" id="video-player">
+      <iframe src="" allowfullscreen></iframe>
+    </div>
+
+    <!-- Episodios -->
+    <div class="episodes">
+      <h2>Episodios</h2>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/hn1g7a7ly4hq')">Episodio 1</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/yjn9k52cs45h')">Episodio 2</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/vdoox3vwnqqh')">Episodio 3</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/304qibw0ynye')">Episodio 4</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/4ys9znnhu79t')">Episodio 5</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/3ic8w588671y')">Episodio 6</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/2317bflyjpxw')">Episodio 7</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/olmaskv5j221')">Episodio 8</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/6mfrdazdpvge')">Episodio 9 </div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/4em2d3lqw9bu')">Episodio 10</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/ya4uu2vssr14')">Episodio 11</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/nkpebj7e8ekj')">Episodio 12</div>
+      <div class="episode" onclick="changeVideo('https://mivalyo.com/embed/q8ieiwgv0wt2')">Episodio 13</div>
+    </div>
+  </div>
+
+  <!-- Comentarios -->
+  <div class="comments">
+    <h3>Comentarios</h3>
+    <textarea id="comentario" rows="4" placeholder="Escribe tu comentario..."></textarea>
+    <button onclick="agregarComentario()">Publicar</button>
+    <div id="comentarios-lista"></div>
+  </div>
+
+  <script>
+    function changeVideo(url) {
+      const iframe = document.querySelector("#video-player iframe");
+      iframe.src = url;
+    }
+
+    function agregarComentario() {
+      const texto = document.getElementById("comentario").value.trim();
+      if (texto !== "") {
+        const div = document.createElement("div");
+        div.className = "comment-box";
+        div.innerText = texto;
+        document.getElementById("comentarios-lista").prepend(div);
+        document.getElementById("comentario").value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
